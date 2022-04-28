@@ -12,11 +12,16 @@ var postsRouter = require("./routes/posts");
 
 var app = express();
 
+// 引入dotenv
+const dotenv = require("dotenv");
+dotenv.config({ path: "./config.env" });
+const DB = process.env.DATABASE.replace(
+  "<password>",
+  process.env.DATABASE_PASSWORD
+);
 // 資料庫設定開始
 
-mongoose
-  .connect("mongodb://localhost:27017/testPost6")
-  .then((res) => console.log("連線資料成功"));
+mongoose.connect(DB).then((res) => console.log("連線資料成功"));
 
 app.use(cors());
 app.use(logger("dev"));
